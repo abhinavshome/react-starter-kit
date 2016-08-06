@@ -1,10 +1,20 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+var store = require('./store');
+var TodoForm = require('./todo-form');
+var TodoList = require('./todo-list');
 
-var Welcome = React.createClass({
-  render: function () {
-    return <h1>Hello World</h1>
-  }  
+var TodoApp = React.createClass({
+	render: function () {
+		return <div>
+			<TodoForm />
+			<TodoList todos={this.props.todos} />
+		</div>
+	}
 });
 
-ReactDOM.render(<Welcome/>, document.getElementById('root'));
+var render = function () {
+	ReactDOM.render(<TodoApp todos={store.getState()}/>, document.getElementById('root'));
+};
+render();
+store.subscribe(render);
